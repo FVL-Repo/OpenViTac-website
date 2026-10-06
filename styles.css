@@ -514,6 +514,7 @@ figcaption {
   color: var(--accent);
 }
 .figure-disclosure img {
+  width: 100%;
   max-width: 780px;
   margin: 25px auto 0;
   border-radius: 8px;
