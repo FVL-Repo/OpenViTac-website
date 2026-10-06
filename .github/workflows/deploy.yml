@@ -1,0 +1,47 @@
+name: Deploy OpenViTac website
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: openvitac-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Validate and deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out website source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate JavaScript
+        run: npm run check
+
+      - name: Build static artifact
+        run: npm run build
+
+      - name: Publish to the OpenViTac Pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          deploy_key: ${{ secrets.OPENVITAC_PAGES_DEPLOY_KEY }}
+          external_repository: FVL-Repo/OpenViTac
+          publish_branch: gh-pages
+          publish_dir: ./dist
+          force_orphan: true
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          commit_message: "deploy: publish ${{ github.sha }}"

@@ -39,7 +39,26 @@ Local Lighthouse mobile audit after image optimization: Performance **97**, Acce
 
 ## GitHub Pages deployment
 
-Push this directory to the intended website repository. In repository **Settings → Pages**, choose **Deploy from a branch**, select `main` and `/ (root)`, then save. `.nojekyll` is included. This setup works on both an organization site and a repository subpath. No remote or deployment has been configured by this website implementation.
+The website source remains in `FVL-Repo/OpenViTac-website`. A GitHub Actions workflow validates the JavaScript, prepares an allowlisted static artifact with `npm run build`, and publishes only that artifact to the orphan `gh-pages` branch of `FVL-Repo/OpenViTac`. The source repository and the benchmark's `main` branch therefore remain independent, while the public URL is:
+
+```text
+https://fvl-repo.github.io/OpenViTac/
+```
+
+### One-time repository setup
+
+1. Generate a dedicated SSH key pair. Do not commit either key:
+
+   ```sh
+   ssh-keygen -t ed25519 -C "OpenViTac Pages deployment" -f openvitac-pages-key
+   ```
+
+2. In `FVL-Repo/OpenViTac`, open **Settings → Deploy keys → Add deploy key**, add `openvitac-pages-key.pub`, and enable **Allow write access**.
+3. In `FVL-Repo/OpenViTac-website`, open **Settings → Secrets and variables → Actions**, create a repository secret named `OPENVITAC_PAGES_DEPLOY_KEY`, and paste the complete private key from `openvitac-pages-key`.
+4. Push `main` or manually run the **Deploy OpenViTac website** workflow. This creates or updates the target `gh-pages` branch.
+5. In `FVL-Repo/OpenViTac`, open **Settings → Pages**, select **Deploy from a branch**, choose `gh-pages` and `/ (root)`, then save.
+
+Every subsequent push to `OpenViTac-website/main` automatically republishes the site. The workflow uses deployment concurrency to prevent an older run from overwriting a newer release. The generated `dist/` directory is ignored locally and must not be committed.
 
 After choosing the final public URL, change `og:image` in `index.html` to its absolute public image URL and add a canonical link / `og:url` for reliable social sharing.
 
