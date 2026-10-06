@@ -13,7 +13,7 @@ const tasks = [
     id: "WC",
     name: "Weight classification",
     group: "PP",
-    image: "weight_classify.jpg",
+    image: "weight_classify.png",
     real: false,
     description:
       "Infer an object’s weight from physical interaction and place it according to its weight class.",
@@ -22,7 +22,7 @@ const tasks = [
     id: "HC",
     name: "Hardness classification",
     group: "PP",
-    image: "hardness_classify.jpg",
+    image: "hardness_classify.png",
     real: false,
     description:
       "Distinguish visually ambiguous objects by hardness and make a property-conditioned placement.",
@@ -31,7 +31,7 @@ const tasks = [
     id: "RC",
     name: "Roughness classification",
     group: "PP",
-    image: "roughness_classify.jpg",
+    image: "roughness_classify.png",
     real: true,
     description:
       "Feel the surface texture to classify an object and place it in the corresponding location.",
@@ -40,7 +40,7 @@ const tasks = [
     id: "RR",
     name: "Roughness-guided regrasp",
     group: "PP",
-    image: "roughness_regrasp.jpg",
+    image: "roughness_regrasp.png",
     real: false,
     description:
       "Use tactile surface information to guide regrasping and property-aware manipulation.",
@@ -49,7 +49,7 @@ const tasks = [
     id: "ECS",
     name: "Empty-can selection",
     group: "PP",
-    image: "empty_can_select.jpg",
+    image: "empty_can_select.png",
     real: true,
     description:
       "Distinguish an empty can from filled cans through physical interaction, then select and move it.",
@@ -58,7 +58,7 @@ const tasks = [
     id: "GC",
     name: "Grasp chip",
     group: "FA",
-    image: "grasp_chips.jpg",
+    image: "grasp_chips.png",
     real: true,
     description:
       "Gently grasp and place a fragile chip while regulating contact to avoid damage.",
@@ -67,7 +67,7 @@ const tasks = [
     id: "GA",
     name: "Gear assembly",
     group: "CR",
-    image: "gear_assembly.jpg",
+    image: "gear_assembly.png",
     real: true,
     description:
       "Assemble a gear by matching the teeth and maintaining effective engagement throughout the interaction.",
@@ -76,7 +76,7 @@ const tasks = [
     id: "PD",
     name: "Pull drawer",
     group: "CR",
-    image: "pull_drawer.jpg",
+    image: "pull_drawer.png",
     real: true,
     description:
       "Establish and maintain a stable grasp while pulling an articulated drawer open.",
@@ -85,8 +85,8 @@ const tasks = [
     id: "In-USB",
     name: "Insert USB",
     group: "PR",
-    image: "insert_usb.jpg",
-    extra: "insert_usb_sensors.jpg",
+    image: "insert_usb.png",
+    extra: "insert_usb_sensors.png",
     extraLabel: "View the multi-sensor setup",
     real: true,
     description:
@@ -96,7 +96,7 @@ const tasks = [
     id: "In-B v1",
     name: "Insert block v1",
     group: "PR",
-    image: "insert_block_v1.jpg",
+    image: "insert_block_v1.png",
     real: true,
     description:
       "Precisely align a held block with a target opening and insert it under tight geometric tolerances.",
@@ -105,8 +105,8 @@ const tasks = [
     id: "In-B v2",
     name: "Insert block v2",
     group: "PR",
-    image: "insert_block_v2_p1.jpg",
-    extra: "insert_block_v2_p2.jpg",
+    image: "insert_block_v2_p1.png",
+    extra: "insert_block_v2_p2.png",
     extraLabel: "View additional task variants",
     real: true,
     description:
@@ -127,18 +127,6 @@ const policies = [
     family: "VTLA",
     sim: [61, 100, 100, 78, 50, 60, 83, 94, 27, 12, 8.3, 61.2],
     real: [90, 70, 95, 45, 70, 15, 20, 10, 51.9],
-  },
-  {
-    name: "N0-VTLA",
-    family: "VTLA",
-    sim: [52, 97, 100, 55, 59, 44, 51, 87, 17, 0, 0, 51.1],
-    real: [80, 75, 85, 55, 60, 10, 15, 100 / 6, 49.6],
-  },
-  {
-    name: "N0-TWAM",
-    family: "WAM",
-    sim: [85, 52, 100, 51, 41, 57, 73, 100, 8, 12, 7, 53.3],
-    real: [90, 80, 80, 40, 60, 15, 10, 40 / 3, 48.5],
   },
   {
     name: "InternVLA-A1.5",
@@ -331,7 +319,7 @@ function renderTaskDetail() {
   link.rel = "noopener";
   const img = element("img");
   img.loading = "lazy";
-  img.src = link.getAttribute("href").replace(".jpg", ".webp");
+  img.src = link.getAttribute("href").replace(".png", ".webp");
   img.alt = `${task.name}: sequential robot, wrist-camera, and tactile observations`;
   img.width = 1200;
   link.append(img);
@@ -359,7 +347,7 @@ function renderTaskDetail() {
     extraLink.target = "_blank";
     extraLink.rel = "noopener";
     const extraImage = element("img");
-    extraImage.src = extraLink.getAttribute("href").replace(".jpg", ".webp");
+    extraImage.src = extraLink.getAttribute("href").replace(".png", ".webp");
     extraImage.alt = `${task.name}: ${task.extraLabel.toLowerCase()}`;
     extraImage.loading = "lazy";
     extraLink.append(extraImage);

@@ -311,10 +311,19 @@ a.resource-link:hover {
   display: block;
   border-radius: 8px;
   overflow: hidden;
-  background: white;
+  background: transparent;
 }
 .figure-link img {
   width: 100%;
+  display: block;
+  border-radius: inherit;
+}
+.figure-link.figure-rounded,
+.figure-link.figure-white {
+  border-radius: 16px;
+}
+.figure-link.figure-white {
+  background: white;
 }
 .figure-link:hover {
   outline: 1px solid var(--line);
@@ -474,7 +483,7 @@ figcaption {
 }
 .task-image {
   display: block;
-  background: #fff;
+  background: transparent;
   padding: 8px;
 }
 .task-image img {

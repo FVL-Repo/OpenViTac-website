@@ -64,6 +64,21 @@ After choosing the final public URL, change `og:image` in `index.html` to its ab
 
 ## Visual direction
 
+Research figures are exported as transparent PNGs and WebPs from the source
+`Tactilebench/figs` PDFs. To refresh them, install `pillow`, `pymupdf`, and
+`pikepdf` in a Python environment, then run:
+
+```bash
+python scripts/export-figures.py /path/to/Tactilebench/figs
+```
+
+The exporter removes large white vector panels and adds transparency to the
+outer white background of flattened task diagrams. Source PDFs, photos, and
+small white details are preserved. Real-sim alignment removes only its page
+background, preserving the white fills inside its Real-World and Simulation
+labels. Tactile design and the radar plot retain their original white backgrounds.
+These three figures use rounded image containers.
+
 Research-first layout inspired by the organization of https://univtac.github.io/, using OpenViTac's own manuscript, imagery, and data. Centered project identity and authors lead into a full-width teaser, a selectable task viewer, illustrated methods, compact expandable results, video placeholders, and citation.
 
 Palette: canvas `#fafbfe`, surface `#f0f3fa`, text `#202a3b`, secondary `#566276`, accent `#2458b3`, rule `#d8dfeb`. Space Grotesk supplies headings; system sans-serif keeps prose easy to read; IBM Plex Mono is reserved for code and short task identifiers. Existing blue scientific figures guide the accent choice. No decorative animations or generated research imagery.
