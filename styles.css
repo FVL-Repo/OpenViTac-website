@@ -152,10 +152,6 @@ strong {
   color: var(--text);
   white-space: nowrap;
 }
-.wordmark-mark {
-  color: var(--accent);
-  padding-left: 3px;
-}
 .nav-links {
   display: flex;
   gap: 27px;
