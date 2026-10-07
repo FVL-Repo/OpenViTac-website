@@ -25,7 +25,7 @@
    Layers: sticky navigation 10; skip link 20. Figures retain their original colors. */
 :root {
   color-scheme: light;
-  --bg: #fafbfe;
+  --bg: #fff;
   --surface: #f0f3fa;
   --paper: #fff;
   --text: #202a3b;
@@ -34,35 +34,7 @@
   --accent-soft: #e4ecfc;
   --line: #d8dfeb;
   --hover: #e8edf6;
-  --header: rgba(250, 251, 254, 0.97);
-}
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --bg: #151c28;
-  --surface: #1c2534;
-  --paper: #212c3e;
-  --text: #eff3fc;
-  --muted: #b7c3d6;
-  --accent: #98baff;
-  --accent-soft: #263c61;
-  --line: #3b4b62;
-  --hover: #2d3b52;
-  --header: rgba(21, 28, 40, 0.97);
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --bg: #151c28;
-    --surface: #1c2534;
-    --paper: #212c3e;
-    --text: #eff3fc;
-    --muted: #b7c3d6;
-    --accent: #98baff;
-    --accent-soft: #263c61;
-    --line: #3b4b62;
-    --hover: #2d3b52;
-    --header: rgba(21, 28, 40, 0.97);
-  }
+  --header: rgba(255, 255, 255, 0.97);
 }
 * {
   box-sizing: border-box;
@@ -196,18 +168,6 @@ strong {
 .nav-links a:hover,
 .nav-links a[aria-current] {
   color: var(--accent);
-}
-.theme-toggle {
-  font-size: 12px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 6px 10px;
-  min-height: 36px;
-  background: transparent;
-  white-space: nowrap;
-}
-.theme-toggle:hover {
-  background: var(--hover);
 }
 .hero {
   text-align: center;
@@ -947,9 +907,6 @@ code {
     padding-top: 13px;
     row-gap: 10px;
   }
-  .theme-toggle {
-    min-height: 32px;
-  }
   .hero {
     padding: 37px 0 29px;
   }
@@ -1190,7 +1147,6 @@ code {
 @media print {
   .site-header,
   .resource-links,
-  .theme-toggle,
   .filter-list,
   .task-list,
   .demo-grid,

@@ -21,8 +21,8 @@ Edit `site-config.js`:
 ## Content
 
 - `index.html`: title, authors, affiliations, narrative, figure captions, and preliminary BibTeX.
-- `app.js`: 11 tasks, four filters, simulation/real result tables, theme selection, citation copy, and media rendering.
-- `styles.css`: responsive layout, locally hosted Space Grotesk and IBM Plex Mono, light/dark themes, keyboard focus, reduced-motion support, and print styles.
+- `app.js`: 11 tasks, four filters, simulation/real result tables, citation copy, and media rendering.
+- `styles.css`: responsive layout, locally hosted Space Grotesk and IBM Plex Mono, a fixed light theme, keyboard focus, reduced-motion support, and print styles.
 - `assets/`: supplied figures, task sequences, fonts, and a small favicon. WebP previews reduce the total image payload by approximately 63%; figure links still open the original PNG/JPG files at full resolution.
 
 Content is based on `../main.tex`, `../sec/3_method.tex`, and `../sec/4_experiments.tex`. Do not use the unrelated website URL or old appendix in the source manuscript. The unused affiliation 4 is omitted; the remaining author affiliation numbers are preserved. The spelling of Shanghai Innovation Institute is normalized.
@@ -33,7 +33,7 @@ The BibTeX entry is explicitly preliminary: no arXiv identifier, venue, or relea
 
 ## Validation
 
-Checked the four task filters, task detail switching, additional figures, both result domains (13 simulation / 9 real policies), expandable tables, citation copying, and light/dark themes. Layout checks at 320, 390, 768, and 1440 pixels found no page-level horizontal overflow. Local assets and section anchors resolve, and JavaScript syntax checks pass.
+Checked the four task filters, task detail switching, additional figures, both result domains (13 simulation / 9 real policies), expandable tables, citation copying, and the light theme. Layout checks at 320, 390, 768, and 1440 pixels found no page-level horizontal overflow. Local assets and section anchors resolve, and JavaScript syntax checks pass.
 
 Local Lighthouse mobile audit after image optimization: Performance **97**, Accessibility **100**, Best Practices **100**, SEO **100**; LCP **2.4 s**, CLS **0.036**, TBT **0 ms**. Hosted performance can differ. Local reports and preview screenshots are in the ignored `.artifacts/` directory.
 
@@ -81,4 +81,4 @@ These three figures use rounded image containers.
 
 Research-first layout inspired by the organization of https://univtac.github.io/, using OpenViTac's own manuscript, imagery, and data. Centered project identity and authors lead into a full-width teaser, a selectable task viewer, illustrated methods, compact expandable results, video placeholders, and citation.
 
-Palette: canvas `#fafbfe`, surface `#f0f3fa`, text `#202a3b`, secondary `#566276`, accent `#2458b3`, rule `#d8dfeb`. Space Grotesk supplies headings; system sans-serif keeps prose easy to read; IBM Plex Mono is reserved for code and short task identifiers. Existing blue scientific figures guide the accent choice. No decorative animations or generated research imagery.
+Palette: canvas `#ffffff`, surface `#f0f3fa`, text `#202a3b`, secondary `#566276`, accent `#2458b3`, rule `#d8dfeb`. Space Grotesk supplies headings; system sans-serif keeps prose easy to read; IBM Plex Mono is reserved for code and short task identifiers. Existing blue scientific figures guide the accent choice. No decorative animations or generated research imagery.

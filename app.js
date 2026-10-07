@@ -215,38 +215,6 @@ config.resources.forEach((resource) => {
   resourceContainer.append(link);
 });
 
-const themeButton = document.querySelector("#theme-toggle");
-const mediaTheme = window.matchMedia("(prefers-color-scheme: dark)");
-let storedTheme;
-try {
-  storedTheme = localStorage.getItem("openvitac-theme");
-} catch {
-  /* Storage can be unavailable in private or local-file contexts. */
-}
-if (["light", "dark"].includes(storedTheme))
-  document.documentElement.dataset.theme = storedTheme;
-function currentTheme() {
-  return (
-    document.documentElement.dataset.theme ||
-    (mediaTheme.matches ? "dark" : "light")
-  );
-}
-function updateThemeButton() {
-  const next = currentTheme() === "dark" ? "light" : "dark";
-  themeButton.textContent = `${next === "dark" ? "Dark" : "Light"} theme`;
-  themeButton.setAttribute("aria-label", `Switch to ${next} theme`);
-}
-themeButton.addEventListener("click", () => {
-  const next = currentTheme() === "dark" ? "light" : "dark";
-  document.documentElement.dataset.theme = next;
-  try {
-    localStorage.setItem("openvitac-theme", next);
-  } catch {}
-  updateThemeButton();
-});
-mediaTheme.addEventListener("change", updateThemeButton);
-updateThemeButton();
-
 let selectedGroup = "all";
 let selectedTask = "In-USB";
 const filters = document.querySelector("#task-filters");
