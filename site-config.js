@@ -2,7 +2,7 @@
 // Relative URLs (e.g. assets/paper.pdf) work on GitHub Pages project sites too.
 window.OPENVITAC_CONFIG = {
   resources: [
-    { label: "Paper", url: "", description: "Read the paper" },
+    { label: "Paper", url: "https://arxiv.org/pdf/2610.10384v1", description: "Read the paper" },
     {
       label: "GitHub",
       url: "https://github.com/FVL-Repo/OpenViTac",

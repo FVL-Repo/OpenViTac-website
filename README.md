@@ -14,7 +14,7 @@ Open http://127.0.0.1:4173. Set the `PORT` environment variable if needed. `npm 
 
 Edit `site-config.js`:
 
-- `resources`: GitHub is set to `https://github.com/FVL-Repo/OpenViTac`. Add the official Paper, Hugging Face, and ModelScope URLs when available. Empty URLs intentionally show a non-clickable **Coming soon** state.
+- `resources`: Paper links to `https://arxiv.org/pdf/2610.10384v1` and GitHub to `https://github.com/FVL-Repo/OpenViTac`. Add the official Hugging Face and ModelScope URLs when available. Empty URLs intentionally show a non-clickable **Coming soon** state.
 - `demos`: add a local MP4/WebM file (for example `assets/videos/insert-usb.mp4`) or direct video URL to `src`. The placeholder becomes a native player automatically. `poster` is an optional image; `captions` is an optional English WebVTT file. Videos do not autoplay. YouTube watch pages are not direct video URLs.
 - Demo slots cover the four capability groups. Add or remove entries as needed.
 

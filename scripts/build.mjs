@@ -8,6 +8,7 @@ const files = [
   ".nojekyll",
   "app.js",
   "index.html",
+  "googlea84be0f3728abaf3.html",
   "site-config.js",
   "styles.css",
 ];
