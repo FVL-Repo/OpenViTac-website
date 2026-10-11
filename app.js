@@ -86,8 +86,6 @@ const tasks = [
     name: "Insert USB",
     group: "PR",
     image: "insert_usb.png",
-    extra: "insert_usb_sensors.png",
-    extraLabel: "View the multi-sensor setup",
     real: true,
     description:
       "Use contact feedback to align the USB connector with the instructed slot and complete the insertion.",
@@ -217,6 +215,41 @@ config.resources.forEach((resource) => {
 
 let selectedGroup = "all";
 let selectedTask = "In-USB";
+let taskView = "demos";
+let taskDomain = "sim";
+const selectedConditions = new Map();
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+let demosPaused = reducedMotion.matches;
+let demoObserver;
+const visibleDemos = new Set();
+
+function syncDemoPlayback() {
+  document.querySelectorAll(".task-demo-video").forEach((video) => {
+    const manualPlay = video.dataset.manualPlay === "true";
+    if ((!demosPaused || manualPlay) && !video.ended && !document.hidden && visibleDemos.has(video)) {
+      video.play().catch((error) => {
+        // Autoplay may be blocked by browser preferences; expose manual play.
+        if (error.name === "NotAllowedError" && video.isConnected && visibleDemos.has(video)) {
+          video.dataset.manualPlay = "false";
+          demosPaused = true;
+          syncDemoPlayback();
+        }
+      });
+    } else video.pause();
+    const overlay = video.parentElement.querySelector(".task-demo-replay");
+    if (overlay) {
+      overlay.hidden = !video.ended && (!demosPaused || manualPlay);
+      overlay.firstElementChild.textContent = video.ended ? "↻ Replay" : "▶ Play";
+      overlay.setAttribute("aria-label", `${video.ended ? "Replay" : "Play"} ${overlay.dataset.outcome} example`);
+    }
+  });
+
+}
+document.addEventListener("visibilitychange", syncDemoPlayback);
+reducedMotion.addEventListener("change", () => {
+  demosPaused = reducedMotion.matches;
+  syncDemoPlayback();
+});
 const filters = document.querySelector("#task-filters");
 Object.entries(groups).forEach(([id, name]) => {
   const button = element(
@@ -231,6 +264,7 @@ Object.entries(groups).forEach(([id, name]) => {
     const visible = tasks.filter((task) => id === "all" || task.group === id);
     if (!visible.some((task) => task.id === selectedTask))
       selectedTask = visible[0].id;
+    taskView = "demos";
     renderTasks();
   });
   filters.append(button);
@@ -257,6 +291,7 @@ function renderTasks() {
       button.append(element("span", "", task.id));
       button.addEventListener("click", () => {
         selectedTask = task.id;
+        taskView = "demos";
         list
           .querySelectorAll("button")
           .forEach((item) =>
@@ -272,15 +307,178 @@ function renderTasks() {
   renderTaskDetail();
 }
 
-function renderTaskDetail() {
+function renderTaskDetail(focusControl) {
+  demoObserver?.disconnect();
+  visibleDemos.clear();
+  document.querySelectorAll(".task-demo-video").forEach((video) => {
+    video.pause();
+    video.removeAttribute("src");
+    video.load();
+  });
   const task = tasks.find((task) => task.id === selectedTask);
+  if (!task.real) taskDomain = "sim";
   const detail = document.querySelector("#task-detail");
   const header = element("div", "task-detail-header");
+  const titleRow = element("div", "task-title-row");
+  titleRow.append(element("h3", "", task.name));
   header.append(
     element("p", "task-category", groups[task.group]),
-    element("h3", "", task.name),
-    element("p", "", task.description),
+    titleRow,
+    element("p", "task-description", task.description),
   );
+  const toolbar = element("div", "task-view-toolbar");
+  const domains = element("div", "segmented task-domains");
+  domains.setAttribute("role", "group");
+  domains.setAttribute("aria-label", "Demo environment");
+  const sim = element("button", "", "Simulation");
+  sim.type = "button";
+  sim.setAttribute("aria-pressed", String(taskDomain === "sim"));
+  sim.dataset.taskControl = "simulation";
+  sim.addEventListener("click", () => {
+    taskDomain = "sim";
+    taskView = "demos";
+    renderTaskDetail("simulation");
+  });
+  domains.append(sim);
+  if (task.real) {
+    const available = Boolean(config.taskDemos?.[task.id]?.real);
+    const real = element("button", "", available ? "Real-world" : "Real-world · Soon");
+    real.type = "button";
+    real.disabled = !available;
+    real.dataset.taskControl = "real";
+    real.setAttribute("aria-pressed", String(taskDomain === "real"));
+    real.setAttribute("aria-label", available ? "Real-world demos" : "Real-world demos coming soon");
+    real.addEventListener("click", () => {
+      taskDomain = "real";
+      taskView = "demos";
+      renderTaskDetail("real");
+    });
+    domains.append(real);
+  }
+  const detailsButton = element("button", "task-view-button", taskView === "details" ? "← Back to demos" : "Task details →");
+  detailsButton.type = "button";
+  detailsButton.dataset.taskControl = "details";
+  detailsButton.setAttribute("aria-pressed", String(taskView === "details"));
+  detailsButton.addEventListener("click", () => {
+    taskView = taskView === "demos" ? "details" : "demos";
+    renderTaskDetail("details");
+  });
+  titleRow.append(domains);
+  toolbar.append(detailsButton);
+  header.append(toolbar);
+  detail.replaceChildren(header);
+  if (taskView === "demos") {
+    renderTaskDemos(task, detail);
+  } else {
+    renderTaskFigure(task, detail);
+  }
+  if (focusControl) detail.querySelector(`[data-task-control="${focusControl}"]`)?.focus();
+}
+
+function renderTaskDemos(task, detail) {
+  const base = config.taskDemos?.[task.id];
+  const set = taskDomain === "real" && typeof base?.real === "object" ? { ...base, ...base.real } : base;
+  const conditions = set?.conditions || [];
+  const body = element("div", "task-demo-body");
+  if (!conditions.length) {
+    const empty = element("div", "task-demo-empty");
+    empty.append(element("p", "", `${taskDomain === "real" ? "Real-world" : "Simulation"} demos coming soon.`), element("p", "", "Explore the task sequence in Task details."));
+    body.append(empty);
+    detail.append(body);
+    return;
+  }
+  const conditionKey = `${task.id}:${taskDomain}`;
+  const conditionId = selectedConditions.get(conditionKey) || conditions[0][0];
+  const condition = conditions.find(([id]) => id === conditionId) || conditions[0];
+  const instructionText = condition[2] || set.instruction;
+  const controls = element("div", "task-demo-controls");
+  if (conditions.length > 1) {
+    const choices = element("div", "task-condition-list");
+    choices.setAttribute("role", "group");
+    choices.setAttribute("aria-label", "Demo condition");
+    choices.append(element("span", "task-condition-label", "Condition"));
+    conditions.forEach(([id, label]) => {
+      const button = element("button", "", label);
+      button.type = "button";
+      button.dataset.taskControl = `condition-${id}`;
+      button.setAttribute("aria-pressed", String(id === condition[0]));
+      button.addEventListener("click", () => {
+        selectedConditions.set(conditionKey, id);
+        renderTaskDetail(`condition-${id}`);
+      });
+      choices.append(button);
+    });
+    controls.append(choices);
+  }
+  const grid = element("div", "task-demo-grid");
+  for (const outcome of ["success", "failure"]) {
+    const label = outcome === "success" ? "Success" : "Failure";
+    const card = element("figure", `task-demo-card ${outcome}`);
+    const caption = element("figcaption", "task-demo-caption");
+    caption.append(element("span", "task-outcome", label));
+    const media = element("div", "task-demo-media");
+    if (set.unavailable?.includes(`${condition[0]}/${outcome}`)) {
+      media.append(element("p", "task-video-error", `${label} demo coming soon.`));
+      card.append(caption, media);
+      grid.append(card);
+      continue;
+    }
+    const path = `assets/demos/${taskDomain}/${set.folder}/${condition[0]}/${outcome}`;
+    const video = element("video", "task-demo-video");
+    video.muted = true;
+    video.defaultMuted = true;
+    video.loop = false;
+    video.playsInline = true;
+    video.preload = "metadata";
+    video.poster = `${path}/poster.webp`;
+    video.src = `${path}/demo.mp4`;
+    video.width = 480;
+    video.height = 270;
+    video.setAttribute("aria-label", `${taskDomain === "real" ? "Real-world" : "Simulation"}, ${task.name}, ${condition[1]}, ${label.toLowerCase()} example`);
+    video.addEventListener("ended", syncDemoPlayback);
+    video.addEventListener("error", () => {
+      visibleDemos.delete(video);
+      const message = element("p", "task-video-error", "This demo is currently unavailable.");
+      media.replaceChildren(message);
+    }, { once: true });
+    const replay = element("button", "task-demo-replay");
+    replay.append(element("span", "", "↻ Replay"));
+    replay.hidden = true;
+    replay.dataset.outcome = outcome;
+    replay.type = "button";
+    replay.setAttribute("aria-label", `Replay ${label.toLowerCase()} example`);
+    replay.addEventListener("click", () => {
+      video.currentTime = 0;
+      video.dataset.manualPlay = "true";
+      syncDemoPlayback();
+    });
+    media.append(video, replay);
+    card.append(caption, media);
+    grid.append(card);
+  }
+  if (conditions.length > 1) body.append(controls);
+  if (instructionText) {
+    const instruction = element("div", "task-instruction");
+    instruction.append(
+      element("span", "task-instruction-label", "Instruction"),
+      element("p", "", instructionText),
+    );
+    body.append(instruction);
+  }
+  body.append(grid);
+  detail.append(body);
+  demoObserver = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) visibleDemos.add(entry.target);
+      else visibleDemos.delete(entry.target);
+    }
+    syncDemoPlayback();
+  }, { threshold: 0.15 });
+  grid.querySelectorAll("video").forEach((video) => demoObserver.observe(video));
+  syncDemoPlayback();
+}
+
+function renderTaskFigure(task, detail) {
   const link = element("a", "task-image");
   link.href = `assets/tasks/${task.image}`;
   link.target = "_blank";
@@ -291,22 +489,7 @@ function renderTaskDetail() {
   img.alt = `${task.name}: sequential robot, wrist-camera, and tactile observations`;
   img.width = 1200;
   link.append(img);
-  const footer = element("div", "task-detail-footer");
-  footer.append(
-    element(
-      "span",
-      "",
-      task.real
-        ? "Simulation + paired real-world evaluation"
-        : "Simulation evaluation",
-    ),
-    element("a", "", "Open full-resolution figure"),
-  );
-  const fullLink = footer.querySelector("a");
-  fullLink.href = link.href;
-  fullLink.target = "_blank";
-  fullLink.rel = "noopener";
-  detail.replaceChildren(header, link, footer);
+  detail.append(link);
   if (task.extra) {
     const extra = element("details", "task-extra");
     extra.append(element("summary", "", task.extraLabel));

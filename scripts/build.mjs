@@ -1,5 +1,5 @@
 import { cp, mkdir, rm } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
+import { basename, dirname, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -21,6 +21,9 @@ await Promise.all(
 );
 await cp(resolve(root, "assets"), resolve(output, "assets"), {
   recursive: true,
+  // Keep original montages locally; publish only prepared demo videos.
+  filter: (source) => !source.includes(`${sep}demos${sep}`) ||
+    !/\.mp4$/i.test(source) || basename(source) === "demo.mp4",
 });
 
 console.log(`Prepared GitHub Pages artifact in ${output}`);

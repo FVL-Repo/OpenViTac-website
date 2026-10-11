@@ -2,3 +2,5 @@ node_modules/
 .artifacts/
 dist/
 *.log
+assets/demos/**/*.mp4
+!assets/demos/**/demo.mp4

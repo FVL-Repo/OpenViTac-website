@@ -14,9 +14,29 @@ Open http://127.0.0.1:4173. Set the `PORT` environment variable if needed. `npm 
 
 Edit `site-config.js`:
 
+- `taskDemos`: task folder names and condition labels for the benchmark browser.
+  `instruction` contains the task's display instruction; an optional third entry
+  in each condition overrides it (used for the three Insert Block v2 objects).
+  Instructions match the task code in the sibling OpenViTac repository:
+  `envs/*:TASK_INSTRUCTION` and `insert_block.py:build_instruction()`.
+  Grasp chip uses the exact instruction confirmed by the user:
+  "Gently grasp the chip and place it on the plate."
+  Each available condition has `success/demo.mp4`, `failure/demo.mp4`, and a
+  `poster.webp` beside each video under `assets/demos/<sim|real>/<task>/<condition>/`.
+  The selected condition shows success and failure side by side. Videos are muted,
+  play once while visible. At the end, a translucent overlay with a centered
+  Replay button appears over each video. Reduced-motion preferences start them
+  paused. Tasks without footage show a placeholder and retain their static details.
+  Eight paired tasks support Simulation / Real switching. Set `real: true` to
+  reuse simulation conditions, or a `real` object to override conditions. Real
+  Insert Block v1 has only `standard`; simulation retains its two layouts.
+  `unavailable` lists condition/outcome pairs awaiting valid footage. Real videos preserve the full camera frame at its original resolution.
+  Task details switches the same card to the original observation sequence;
+  Insert USB's multi-sensor figure is reserved for a later standalone section.
+  Original montage MP4s remain local and are excluded from Git and build output;
+  only `demo.mp4` files and their posters are published.
 - `resources`: Paper links to `https://arxiv.org/pdf/2610.10384v1` and GitHub to `https://github.com/FVL-Repo/OpenViTac`. Add the official Hugging Face and ModelScope URLs when available. Empty URLs intentionally show a non-clickable **Coming soon** state.
-- `demos`: add a local MP4/WebM file (for example `assets/videos/insert-usb.mp4`) or direct video URL to `src`. The placeholder becomes a native player automatically. `poster` is an optional image; `captions` is an optional English WebVTT file. Videos do not autoplay. YouTube watch pages are not direct video URLs.
-- Demo slots cover the four capability groups. Add or remove entries as needed.
+- `demos`: legacy capability-level demo slots, currently hidden with their section.
 
 ## Content
 
@@ -25,7 +45,7 @@ Edit `site-config.js`:
 - `styles.css`: responsive layout, locally hosted Space Grotesk and IBM Plex Mono, a fixed light theme, keyboard focus, reduced-motion support, and print styles.
 - `assets/`: supplied figures, task sequences, fonts, and a small favicon. WebP previews reduce the total image payload by approximately 63%; figure links still open the original PNG/JPG files at full resolution.
 
-Content is based on `../main.tex`, `../sec/3_method.tex`, and `../sec/4_experiments.tex`. Do not use the unrelated website URL or old appendix in the source manuscript. The unused affiliation 4 is omitted; the remaining author affiliation numbers are preserved. The spelling of Shanghai Innovation Institute is normalized.
+Content is based on `../main.tex`, `../sec/3_method.tex`, and `../sec/4_experiments.tex`. Do not use the unrelated website URL or old appendix in the source manuscript. Author affiliations follow the latest supplied author list, including Shanghai Key Laboratory of Multimodal Embodied AI (2) and National University of Singapore (4).
 
 The results table shows the five highest-scoring policies by default; readers can expand to all 13 simulation policies or all 9 real-world policies. Simulation covers 11 tasks, real-world evaluation covers 8. Reported averages are copied from the manuscript, and real-world fractions are converted to percentages (one decimal where needed). Pearson r = 0.913 is measured across the nine policies with complete shared-task results. These domain averages must not be interpreted as performance on identical task sets.
 
