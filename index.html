@@ -34,6 +34,26 @@
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
+    <section class="showcase" id="showcase" aria-label="OpenViTac video highlights" aria-roledescription="carousel" tabindex="0">
+      <div class="showcase-slides" id="showcase-slides">
+        <article class="showcase-slide is-active" aria-label="1 of 4: Contact-rich manipulation" aria-roledescription="slide">
+          <video class="showcase-video" muted playsinline preload="none" poster="assets/demos/real/gear_assembly/standard/success/poster.webp" aria-label="A real robot assembles and turns a pair of gears"></video>
+          <div class="showcase-banner">
+            <h2>OpenViTac</h2>
+            <p class="showcase-category">Contact-rich manipulation</p>
+          </div>
+        </article>
+      </div>
+      <div class="showcase-footer">
+        <a class="showcase-explore" href="#main">Explore the benchmark <span aria-hidden="true">↓</span></a>
+        <div class="showcase-navigation">
+          <button class="showcase-arrow showcase-prev" type="button" aria-label="Previous video" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m14 5-7 7 7 7"/></svg></button>
+          <div class="showcase-pagination" aria-label="Choose a highlight"></div>
+          <button class="showcase-arrow showcase-next" type="button" aria-label="Next video" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m10 5 7 7-7 7"/></svg></button>
+        </div>
+      </div>
+      <p class="sr-only" id="showcase-status" aria-live="polite" aria-atomic="true"></p>
+    </section>
     <header class="site-header">
       <nav class="nav wrap" aria-label="Main navigation">
         <a class="wordmark" href="#" aria-label="OpenViTac home"
@@ -112,7 +132,7 @@
               sizes="(max-width: 767px) calc(100vw - 36px), 880px"
               width="2000"
               height="1446"
-              fetchpriority="high"
+              loading="lazy"
               alt="OpenViTac overview: paired simulated and real tasks, four tactile capabilities, two gripper setups, three tactile sensors, and policy evaluation."
           /></div>
         </figure>

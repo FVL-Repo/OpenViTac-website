@@ -1,6 +1,29 @@
 // Fill in official release URLs here. Empty URLs display an honest Coming soon state.
 // Relative URLs (e.g. assets/paper.pdf) work on GitHub Pages project sites too.
 window.OPENVITAC_CONFIG = {
+  // One real-world demo per capability; label is the centered subtitle.
+  highlights: [
+    {
+      path: "assets/demos/real/gear_assembly/standard/success",
+      label: "Contact-rich manipulation",
+      alt: "A real robot assembles and turns a pair of gears",
+    },
+    {
+      path: "assets/demos/real/grasp_chips/standard/success",
+      label: "Fragility-aware manipulation",
+      alt: "A real robot gently grasps and places a fragile chip",
+    },
+    {
+      path: "assets/demos/real/insert_usb/standard/success",
+      label: "Precision manipulation",
+      alt: "A real robot picks up a USB plug and inserts it into the matching slot",
+    },
+    {
+      path: "assets/demos/real/roughness_classify/rough/success",
+      label: "Physical-property perception",
+      alt: "A real robot classifies and places a block by its surface texture",
+    },
+  ],
   // Condition IDs match assets/demos/<sim|real>/<folder>/<condition>/<outcome>/.
   // Instructions are verbatim from OpenViTac/envs TASK_INSTRUCTION or build_instruction().
   // Grasp chip instruction is confirmed by the user from the training figure.

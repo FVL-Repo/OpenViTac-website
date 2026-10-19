@@ -14,6 +14,20 @@ Open http://127.0.0.1:4173. Set the `PORT` environment variable if needed. `npm 
 
 Edit `site-config.js`:
 
+- `highlights`: four real-world opening video slides, one per capability,
+  each with a task video directory, capability label, and video alternative text.
+  The centered banner shows OpenViTac with the capability as its subtitle.
+  The full-viewport
+  carousel precedes the existing navigation and paper content. It reuses local
+  task videos/posters, advances when a video ends, and supports unnumbered bar
+  selectors, keyboard arrows, and touch swipes, with a directional horizontal
+  slide animation (instant transitions for reduced-motion preferences).
+  Desktop arrows flank the bottom
+  bars; mobile hides the arrows. There is no visible pause control. Below 768px, the
+  same carousel uses a responsive 16:9 height instead of filling the viewport,
+  with compact controls and the full video frame visible. Only visited videos
+  load; playback pauses offscreen or in a hidden tab. Reduced-motion preferences
+  show posters until a highlight is explicitly selected. A static first slide remains without JS.
 - `taskDemos`: task folder names and condition labels for the benchmark browser.
   `instruction` contains the task's display instruction; an optional third entry
   in each condition overrides it (used for the three Insert Block v2 objects).
@@ -112,6 +126,6 @@ The architecture section uses one concise paragraph below the figure to explain
 the representation and integration study and the resulting OpenVTLA design. Evaluation contains the domain switch and expandable
 policy table, without headline metrics or the co-training summary.
 
-Research-first layout inspired by the organization of https://univtac.github.io/, using OpenViTac's own manuscript, imagery, and data. Centered project identity and authors lead into a full-width teaser, an abstract, a combined design overview, a selectable task viewer, the OpenVTLA architecture, compact expandable results, and citation.
+Research-first layout inspired by the organization of https://univtac.github.io/, using OpenViTac's own manuscript, imagery, and data. A full-screen video carousel with centered description banners opens the page. Below it, centered project identity and authors lead into a full-width teaser, an abstract, a combined design overview, a selectable task viewer, the OpenVTLA architecture, compact expandable results, and citation.
 
-Palette: canvas `#ffffff`, surface `#f0f3fa`, text `#202a3b`, secondary `#566276`, accent `#2458b3`, rule `#d8dfeb`. Space Grotesk supplies headings; system sans-serif keeps prose easy to read; IBM Plex Mono is reserved for code and short task identifiers. Existing blue scientific figures guide the accent choice. No decorative animations or generated research imagery.
+Palette: canvas `#ffffff`, surface `#f0f3fa`, text `#202a3b`, secondary `#566276`, accent `#2458b3`, rule `#d8dfeb`. Space Grotesk supplies headings; system sans-serif keeps prose easy to read; IBM Plex Mono is reserved for code and short task identifiers. Existing blue scientific figures guide the accent choice. The opening carousel uses dark translucent overlays for contrast and directional slide transitions between supplied videos. No generated research imagery.

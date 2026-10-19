@@ -1,6 +1,154 @@
 "use strict";
 
 const config = window.OPENVITAC_CONFIG || { resources: [], demos: [] };
+
+function initShowcase() {
+  const root = document.querySelector("#showcase");
+  const highlights = config.highlights || [];
+  if (!root || !highlights.length) return;
+  const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const container = root.querySelector(".showcase-slides");
+  const pagination = root.querySelector(".showcase-pagination");
+  const status = root.querySelector("#showcase-status");
+  let active = 0;
+  let paused = motion.matches;
+  let visible = false;
+  let startPointer = null;
+  let slideAnimations = [];
+  const slides = highlights.map((item, index) => {
+    const slide = document.createElement("article");
+    slide.className = "showcase-slide";
+    slide.setAttribute("aria-roledescription", "slide");
+    slide.setAttribute("aria-label", `${index + 1} of ${highlights.length}: ${item.label}`);
+    const video = document.createElement("video");
+    video.className = "showcase-video";
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.preload = "none";
+    video.poster = `${item.path}/poster.webp`;
+    video.setAttribute("aria-label", item.alt);
+    const banner = document.createElement("div");
+    banner.className = "showcase-banner";
+    [["h2", "", "OpenViTac"], ["p", "showcase-category", item.label]].forEach(([tag, className, text]) => {
+      const node = document.createElement(tag);
+      node.className = className;
+      node.textContent = text;
+      banner.append(node);
+    });
+    slide.append(video, banner);
+    video.addEventListener("ended", () => {
+      if (index === active && !paused && visible && !document.hidden) select(active + 1);
+    });
+    video.addEventListener("error", () => {
+      if (!slide.querySelector(".showcase-error")) {
+        const message = document.createElement("p");
+        message.className = "showcase-error";
+        message.textContent = "Video unavailable. Try another highlight.";
+        slide.append(message);
+      }
+      syncPlayback();
+    });
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "showcase-page";
+    button.setAttribute("aria-label", `Show video ${index + 1}: ${item.label}`);
+    button.addEventListener("click", () => select(index, true));
+    pagination.append(button);
+    return { slide, video, button, item };
+  });
+  container.replaceChildren(...slides.map(({ slide }) => slide));
+
+  function syncPlayback() {
+    slides.forEach(({ video, item }, index) => {
+      if (index !== active || paused || !visible || document.hidden || video.error) {
+        video.pause();
+        return;
+      }
+      // Load only visited videos; a paused/reduced-motion page needs no MP4 download.
+      if (!video.hasAttribute("src")) video.src = `${item.path}/demo.mp4`;
+      video.play().catch((error) => {
+        if (error.name === "NotAllowedError" && index === active) {
+          paused = true;
+        }
+      });
+    });
+  }
+
+  function select(index, announce = false) {
+    // An explicit selection also starts playback when autoplay was suppressed.
+    if (announce) paused = false;
+    const previous = active;
+    const direction = index > previous ? 1 : -1;
+    active = (index + slides.length) % slides.length;
+    if (previous !== active) {
+      slideAnimations.forEach((animation) => animation.cancel());
+      slideAnimations = [];
+      const incoming = slides[active].video;
+      if (incoming.readyState > 0) incoming.currentTime = 0;
+    }
+    slides.forEach(({ slide, video, button }, i) => {
+      slide.classList.toggle("is-active", i === active);
+      slide.setAttribute("aria-hidden", String(i !== active));
+      button.setAttribute("aria-pressed", String(i === active));
+      if (i !== active) {
+        video.pause();
+      }
+    });
+    if (previous !== active && !motion.matches) {
+      const options = { duration: 560, easing: "cubic-bezier(0.22, 1, 0.36, 1)" };
+      // Freeze the outgoing frame until it leaves; restart it only on re-entry.
+      slideAnimations = [
+        slides[previous].slide.animate([
+          { transform: "translateX(0)", opacity: 1, visibility: "visible" },
+          { transform: `translateX(${-direction * 100}%)`, opacity: 1, visibility: "visible" },
+        ], options),
+        slides[active].slide.animate([
+          { transform: `translateX(${direction * 100}%)`, opacity: 1, visibility: "visible" },
+          { transform: "translateX(0)", opacity: 1, visibility: "visible" },
+        ], options),
+      ];
+    }
+    if (announce) status.textContent = `${active + 1} of ${slides.length}: ${slides[active].item.label}`;
+    syncPlayback();
+  }
+
+  root.querySelectorAll(".showcase-arrow").forEach((button) => {
+    button.hidden = slides.length < 2;
+    button.addEventListener("click", () => select(active + (button.classList.contains("showcase-next") ? 1 : -1), true));
+  });
+  root.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+      event.preventDefault();
+      select(active + (event.key === "ArrowRight" ? 1 : -1), true);
+    }
+  });
+  root.addEventListener("pointerdown", (event) => {
+    if (event.pointerType === "mouse" || event.target.closest("button, a")) return;
+    startPointer = { x: event.clientX, y: event.clientY };
+  });
+  root.addEventListener("pointerup", (event) => {
+    if (!startPointer) return;
+    const dx = event.clientX - startPointer.x;
+    const dy = event.clientY - startPointer.y;
+    startPointer = null;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) select(active + (dx < 0 ? 1 : -1), true);
+  });
+  root.addEventListener("pointercancel", () => { startPointer = null; });
+  new IntersectionObserver(([entry]) => {
+    visible = entry.isIntersecting && entry.intersectionRatio >= 0.25;
+    syncPlayback();
+  }, { threshold: [0, 0.25] }).observe(root);
+  document.addEventListener("visibilitychange", syncPlayback);
+  motion.addEventListener("change", () => {
+    paused = motion.matches;
+    if (motion.matches) slideAnimations.forEach((animation) => animation.cancel());
+    syncPlayback();
+  });
+  select(0);
+}
+initShowcase();
+
 const groups = {
   all: "All tasks",
   PP: "Property perception",
