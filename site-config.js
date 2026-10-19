@@ -42,14 +42,15 @@ window.OPENVITAC_CONFIG = {
     "In-B v2": { folder: "insert_block_v2", real: true, conditions: [["cube", "Cube", "Insert the blue cube into the matching hole in the yellow box."], ["half_cyl", "Half-cylinder", "Insert the blue half cylinder into the matching hole in the yellow box."], ["hex", "Hexagonal prism", "Insert the red hexagonal prism into the matching hole in the yellow box."]] },
   },
   resources: [
-    { label: "Paper", url: "https://arxiv.org/pdf/2610.10384v1", description: "Read the paper" },
+    { label: "Paper", icon: "arxiv", url: "https://arxiv.org/pdf/2610.10384v1", description: "Read the paper on arXiv" },
     {
       label: "GitHub",
+      icon: "github",
       url: "https://github.com/FVL-Repo/OpenViTac",
       description: "Code and benchmark",
     },
-    { label: "Hugging Face", url: "", description: "Models and datasets" },
-    { label: "ModelScope", url: "", description: "Models and datasets" },
+    { label: "Hugging Face", icon: "huggingface", url: "https://huggingface.co/datasets/FVL-Lab/OpenViTac", description: "OpenViTac dataset on Hugging Face" },
+    { label: "ModelScope", icon: "modelscope", url: "https://www.modelscope.cn/datasets/FVLRepo/OpenViTac", description: "OpenViTac dataset on ModelScope" },
   ],
   // Use local MP4/WebM files or direct video URLs, not YouTube watch-page URLs.
   // A populated src automatically replaces its placeholder with a native player.

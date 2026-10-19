@@ -348,6 +348,15 @@ const resourceContainer = document.querySelector("#resource-links");
 config.resources.forEach((resource) => {
   const url = safeUrl(resource.url);
   const link = element(url ? "a" : "span", "resource-link");
+  if (["arxiv", "github", "huggingface", "modelscope"].includes(resource.icon)) {
+    const icon = element("img", "resource-icon");
+    icon.src = `assets/icons/${resource.icon}.svg`;
+    icon.alt = "";
+    icon.width = 20;
+    icon.height = 20;
+    icon.setAttribute("aria-hidden", "true");
+    link.append(icon);
+  }
   link.append(element("span", "", resource.label));
   if (url) {
     link.href = url;

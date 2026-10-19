@@ -49,7 +49,7 @@ Edit `site-config.js`:
   Insert USB's multi-sensor figure is reserved for a later standalone section.
   Original montage MP4s remain local and are excluded from Git and build output;
   only `demo.mp4` files and their posters are published.
-- `resources`: Paper links to `https://arxiv.org/pdf/2610.10384v1` and GitHub to `https://github.com/FVL-Repo/OpenViTac`. Add the official Hugging Face and ModelScope URLs when available. Empty URLs intentionally show a non-clickable **Coming soon** state.
+- `resources`: Paper links to `https://arxiv.org/pdf/2610.10384v1`, GitHub to `https://github.com/FVL-Repo/OpenViTac`, Hugging Face to `https://huggingface.co/datasets/FVL-Lab/OpenViTac`, and ModelScope to `https://www.modelscope.cn/datasets/FVLRepo/OpenViTac`. The `icon` field selects a local SVG from `assets/icons/`; see that directory's `LICENSE.txt` for icon sources and licenses. Empty URLs intentionally show a non-clickable **Coming soon** state.
 - `demos`: legacy capability-level demo slots, currently hidden with their section.
 
 ## Content

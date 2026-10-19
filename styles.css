@@ -395,6 +395,12 @@ strong {
   font-weight: 400;
   color: var(--muted);
 }
+.resource-icon {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  object-fit: contain;
+}
 a.resource-link {
   border-color: var(--accent);
   color: var(--accent);
