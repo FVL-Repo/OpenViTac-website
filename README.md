@@ -43,7 +43,7 @@ Edit `site-config.js`:
 - `index.html`: title, authors, affiliations, narrative, figure captions, and preliminary BibTeX.
 - `app.js`: 11 tasks, four filters, simulation/real result tables, citation copy, and media rendering.
 - `styles.css`: responsive layout, locally hosted Space Grotesk and IBM Plex Mono, a fixed light theme, keyboard focus, reduced-motion support, and print styles.
-- `assets/`: supplied figures, task sequences, fonts, and a small favicon. WebP previews reduce the total image payload by approximately 63%; figure links still open the original PNG/JPG files at full resolution.
+- `assets/`: supplied figures, task sequences, fonts, and a small favicon. WebP previews reduce the total image payload by approximately 63%; all figures display inline without click-to-open links.
 
 Content is based on `../main.tex`, `../sec/3_method.tex`, and `../sec/4_experiments.tex`. Do not use the unrelated website URL or old appendix in the source manuscript. Author affiliations follow the latest supplied author list, including Shanghai Key Laboratory of Multimodal Embodied AI (2) and National University of Singapore (4).
 
@@ -90,6 +90,7 @@ Research figures are exported as transparent PNGs and WebPs from the source
 
 ```bash
 python scripts/export-figures.py /path/to/Tactilebench/figs
+python scripts/compose-design-overview.py
 ```
 
 The exporter removes large white vector panels and adds transparency to the
@@ -98,6 +99,13 @@ small white details are preserved. Real-sim alignment removes only its page
 background, preserving the white fills inside its Real-World and Simulation
 labels. Tactile design and the radar plot retain their original white backgrounds.
 These three figures use rounded image containers.
+
+Capability Taxonomy, Real–Sim Alignment, and Scene Diversity appear together
+as one **Overview of the OpenViTac design** figure, following the manuscript's
+left / stacked-right arrangement. On phones, the panels stack within the same
+figure and retain a shared caption. All images stay inline without full-size
+links. An optional standalone SVG can be assembled from the original PNG
+exports with the second command above.
 
 Research-first layout inspired by the organization of https://univtac.github.io/, using OpenViTac's own manuscript, imagery, and data. Centered project identity and authors lead into a full-width teaser, a selectable task viewer, illustrated methods, compact expandable results, video placeholders, and citation.
 

@@ -109,13 +109,7 @@
         aria-labelledby="overview-title"
       >
         <figure class="teaser-figure">
-          <a
-            class="figure-link"
-            href="assets/teaser.png"
-            target="_blank"
-            rel="noopener"
-            aria-label="Open the benchmark overview figure at full resolution"
-            ><img
+          <div class="figure-frame"><img
               src="assets/teaser.webp"
               srcset="assets/teaser-800.webp 800w, assets/teaser.webp 2000w"
               sizes="(max-width: 767px) calc(100vw - 36px), 1040px"
@@ -123,7 +117,7 @@
               height="1446"
               fetchpriority="high"
               alt="OpenViTac overview: paired simulated and real tasks, four tactile capabilities, two gripper setups, three tactile sensors, and policy evaluation."
-          /></a>
+          /></div>
           <figcaption>
             One benchmark. Paired simulation and reality. Four dimensions of
             touch.
@@ -197,25 +191,7 @@
               aria-atomic="true"
             ></article>
           </div>
-          <details class="figure-disclosure">
-            <summary>See the complete capability taxonomy</summary>
-            <a
-              href="assets/capability_taxonomy.png"
-              target="_blank"
-              rel="noopener"
-              ><img
-                src="assets/capability_taxonomy.webp"
-                srcset="
-                  assets/capability_taxonomy-800.webp  800w,
-                  assets/capability_taxonomy.webp     1600w
-                "
-                sizes="(max-width: 767px) calc(100vw - 36px), 780px"
-                width="1600"
-                height="1596"
-                loading="lazy"
-                alt="Taxonomy organizing benchmark tasks by physical-property perception, fragility-aware, contact-rich, and precision capabilities."
-            /></a>
-          </details>
+
         </div>
       </section>
 
@@ -225,71 +201,57 @@
         aria-labelledby="sim-real-title"
       >
         <div class="section-heading">
-          <h2 id="sim-real-title">From the real world, into simulation.</h2>
+          <h2 id="sim-real-title">Overview of the OpenViTac design</h2>
           <p>
-            Aligned objects, scenes, and task configurations connect virtual
-            evaluation with physical manipulation.
+            A capability-driven benchmark, grounded in real-world tasks and
+            expanded through diverse simulation environments.
           </p>
         </div>
-        <figure>
-          <a
-            class="figure-link figure-rounded"
-            href="assets/real_sim_alignment.png"
-            target="_blank"
-            rel="noopener"
-            ><img
-              src="assets/real_sim_alignment.webp"
-              srcset="
-                assets/real_sim_alignment-800.webp  800w,
-                assets/real_sim_alignment.webp     2000w
-              "
-              sizes="(max-width: 767px) calc(100vw - 36px), 1120px"
-              width="2000"
-              height="1013"
-              loading="lazy"
-              alt="Agent-assisted real-to-sim pipeline reconstructing assets from multi-view images and building corresponding tasks and trajectories."
-          /></a>
-          <figcaption>
-            Agent-assisted asset reconstruction and task construction preserve
-            task-relevant structure across domains.
-          </figcaption>
-        </figure>
-        <div class="alignment-notes">
-          <div>
-            <h3>Corresponding tasks</h3>
-            <p>
-              Eight shared tasks support comparison under matched manipulation
-              objectives in simulation and on real hardware.
-            </p>
+        <figure class="design-figure" aria-labelledby="design-caption">
+          <div class="design-panels">
+            <div class="design-panel design-taxonomy">
+              <img
+                src="assets/capability_taxonomy.webp"
+                srcset="assets/capability_taxonomy-800.webp 800w, assets/capability_taxonomy.webp 1600w"
+                sizes="(max-width: 767px) calc(100vw - 68px), 460px"
+                width="1600"
+                height="1596"
+                loading="lazy"
+                alt="Four visuo-tactile capabilities and their underlying skills, arranged in a circular taxonomy."
+              />
+              <p class="design-panel-label"><span>(a)</span> Capability Taxonomy</p>
+            </div>
+            <div class="design-panel design-alignment">
+              <img
+                src="assets/real_sim_alignment.webp"
+                srcset="assets/real_sim_alignment-800.webp 800w, assets/real_sim_alignment.webp 2000w"
+                sizes="(max-width: 767px) calc(100vw - 68px), 620px"
+                width="2000"
+                height="1013"
+                loading="lazy"
+                alt="Corresponding real-world and simulated objects and manipulation setups, aligned at the asset and task levels."
+              />
+              <p class="design-panel-label"><span>(b)</span> Real–Sim Alignment</p>
+            </div>
+            <div class="design-panel design-diversity">
+              <img
+                src="assets/scene_diversity.webp"
+                srcset="assets/scene_diversity-800.webp 800w, assets/scene_diversity.webp 2000w"
+                sizes="(max-width: 767px) calc(100vw - 68px), 620px"
+                width="2000"
+                height="402"
+                loading="lazy"
+                alt="A shared USB-insertion task with increasingly diverse simulated backgrounds and workspace appearances."
+              />
+              <p class="design-panel-label"><span>(c)</span> Scene Diversity</p>
+            </div>
           </div>
-          <div>
-            <h3>Diverse environments</h3>
-            <p>
-              Backgrounds, workspace appearance, and surrounding context vary
-              while the underlying task configuration stays consistent.
-            </p>
-          </div>
-        </div>
-        <figure class="scene-figure">
-          <a
-            class="figure-link"
-            href="assets/scene_diversity.png"
-            target="_blank"
-            rel="noopener"
-            ><img
-              src="assets/scene_diversity.webp"
-              srcset="
-                assets/scene_diversity-800.webp  800w,
-                assets/scene_diversity.webp     2000w
-              "
-              sizes="(max-width: 767px) calc(100vw - 36px), 1120px"
-              width="2000"
-              height="402"
-              loading="lazy"
-              alt="The same manipulation scene across a range of simulated backgrounds and workspace appearances."
-          /></a>
-          <figcaption>
-            Scene diversification broadens the training distribution.
+          <figcaption id="design-caption">
+            <strong>Overview of the OpenViTac design.</strong>
+            <strong>(a)</strong> Four tactile capabilities define the skills to evaluate.
+            <strong>(b)</strong> Real-world references guide corresponding simulation
+            assets and tasks. <strong>(c)</strong> Configurable appearance variations
+            broaden scene diversity while preserving the underlying task.
           </figcaption>
         </figure>
       </section>
@@ -309,12 +271,7 @@
             </p>
           </div>
           <figure>
-            <a
-              class="figure-link figure-white"
-              href="assets/tactile_design.png"
-              target="_blank"
-              rel="noopener"
-              ><img
+            <div class="figure-frame figure-white"><img
                 src="assets/tactile_design.webp"
                 srcset="
                   assets/tactile_design-800.webp  800w,
@@ -325,7 +282,7 @@
                 height="963"
                 loading="lazy"
                 alt="Design space comparing four tactile representations and five integration strategies for adapting pretrained vision-language-action models."
-            /></a>
+            /></div>
             <figcaption>
               We study what tactile information to represent, and where to
               introduce it into a pretrained policy.
@@ -358,12 +315,7 @@
               </dl>
             </div>
             <figure class="radar-figure">
-              <a
-                class="figure-link figure-white"
-                href="assets/tactile_radar.png"
-                target="_blank"
-                rel="noopener"
-                ><img
+              <div class="figure-frame figure-white"><img
                   src="assets/tactile_radar.webp"
                   srcset="
                     assets/tactile_radar-800.webp  800w,
@@ -374,7 +326,7 @@
                   height="1214"
                   loading="lazy"
                   alt="Radar plot comparing tactile representations under a fixed token-level concatenation strategy."
-              /></a>
+              /></div>
               <figcaption>
                 Representation comparison with the same integration strategy.
               </figcaption>

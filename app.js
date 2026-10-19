@@ -479,30 +479,22 @@ function renderTaskDemos(task, detail) {
 }
 
 function renderTaskFigure(task, detail) {
-  const link = element("a", "task-image");
-  link.href = `assets/tasks/${task.image}`;
-  link.target = "_blank";
-  link.rel = "noopener";
+  const frame = element("div", "task-image");
   const img = element("img");
   img.loading = "lazy";
-  img.src = link.getAttribute("href").replace(".png", ".webp");
+  img.src = `assets/tasks/${task.image.replace(".png", ".webp")}`;
   img.alt = `${task.name}: sequential robot, wrist-camera, and tactile observations`;
   img.width = 1200;
-  link.append(img);
-  detail.append(link);
+  frame.append(img);
+  detail.append(frame);
   if (task.extra) {
     const extra = element("details", "task-extra");
     extra.append(element("summary", "", task.extraLabel));
-    const extraLink = element("a");
-    extraLink.href = `assets/tasks/${task.extra}`;
-    extraLink.target = "_blank";
-    extraLink.rel = "noopener";
     const extraImage = element("img");
-    extraImage.src = extraLink.getAttribute("href").replace(".png", ".webp");
+    extraImage.src = `assets/tasks/${task.extra.replace(".png", ".webp")}`;
     extraImage.alt = `${task.name}: ${task.extraLabel.toLowerCase()}`;
     extraImage.loading = "lazy";
-    extraLink.append(extraImage);
-    extra.append(extraLink);
+    extra.append(extraImage);
     detail.append(extra);
   }
 }

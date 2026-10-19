@@ -263,26 +263,23 @@ a.resource-link:hover {
   max-width: 1040px;
   margin: auto;
 }
-.figure-link {
+.figure-frame {
   display: block;
   border-radius: 8px;
   overflow: hidden;
   background: transparent;
 }
-.figure-link img {
+.figure-frame img {
   width: 100%;
   display: block;
   border-radius: inherit;
 }
-.figure-link.figure-rounded,
-.figure-link.figure-white {
+.figure-frame.figure-rounded,
+.figure-frame.figure-white {
   border-radius: 16px;
 }
-.figure-link.figure-white {
+.figure-frame.figure-white {
   background: white;
-}
-.figure-link:hover {
-  outline: 1px solid var(--line);
 }
 figcaption {
   font-size: 13px;
@@ -670,37 +667,44 @@ figcaption {
 .task-extra img {
   margin-top: 10px;
 }
-.figure-disclosure {
-  margin-top: 26px;
-  border-top: 1px solid var(--line);
-  padding-top: 18px;
+.design-figure {
+  padding: 28px;
+  border-radius: 16px;
+  background: var(--paper);
 }
-.figure-disclosure summary {
-  cursor: pointer;
-  font-size: 14px;
-  color: var(--accent);
-}
-.figure-disclosure img {
-  width: 100%;
-  max-width: 780px;
-  margin: 25px auto 0;
-  border-radius: 8px;
-}
-.alignment-notes {
+.design-panels {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  margin: 32px 0 28px;
+  grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.56fr);
+  gap: 22px 32px;
+  align-items: center;
 }
-.alignment-notes h3 {
-  margin-bottom: 12px;
+.design-panel {
+  min-width: 0;
 }
-.alignment-notes p {
-  font-size: 15px;
-  max-width: 55ch;
+.design-taxonomy {
+  grid-row: 1 / span 2;
 }
-.scene-figure img {
-  border-radius: 8px;
+.design-panel img {
+  width: 100%;
+  height: auto;
+}
+.design-panel-label {
+  margin-top: 12px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+}
+.design-panel-label span {
+  margin-right: 4px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.design-figure figcaption {
+  margin-top: 26px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  max-width: 95ch;
 }
 .method-study {
   display: grid;
@@ -1227,10 +1231,25 @@ code {
     padding: 15px 20px;
     font-size: 11px;
   }
-  .alignment-notes {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    margin: 28px 0;
+  .design-figure {
+    padding: 16px;
+    border-radius: 12px;
+  }
+  .design-panels {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+  .design-taxonomy {
+    grid-row: auto;
+  }
+  .design-panel-label {
+    margin-top: 10px;
+    font-size: 13px;
+  }
+  .design-figure figcaption {
+    margin-top: 24px;
+    padding-top: 16px;
+    font-size: 12px;
   }
   .method-study {
     grid-template-columns: 1fr;
