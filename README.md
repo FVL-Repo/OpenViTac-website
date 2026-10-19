@@ -97,8 +97,9 @@ The exporter removes large white vector panels and adds transparency to the
 outer white background of flattened task diagrams. Source PDFs, photos, and
 small white details are preserved. Real-sim alignment removes only its page
 background, preserving the white fills inside its Real-World and Simulation
-labels. Tactile design and the radar plot retain their original white backgrounds.
-These three figures use rounded image containers.
+labels. The teaser, tactile design, and radar plot retain their original white
+backgrounds. The teaser also preserves the white overlays that soften its
+background photos. Figure containers have rounded corners.
 
 Capability Taxonomy, Real–Sim Alignment, and Scene Diversity appear together
 as one **Overview of the OpenViTac design** figure, following the manuscript's

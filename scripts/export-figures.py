@@ -39,7 +39,9 @@ TASKS = {
     "insert_block_v2_p1": "insert_block_v2_part1_figure.pdf",
     "insert_block_v2_p2": "insert_block_v2_part2_figure.pdf",
 }
-OPAQUE_FIGURES = {"tactile_radar", "tactile_design"}
+# The teaser includes intentional white overlays that soften background photos.
+# Keep them intact, along with its white page background.
+OPAQUE_FIGURES = {"teaser", "tactile_radar", "tactile_design"}
 
 
 def transparent_pdf(path):
