@@ -655,14 +655,17 @@ config.demos.forEach((demo) => {
 });
 */
 
+let citationCopyReset;
 document
   .querySelector("#copy-citation")
   .addEventListener("click", async (event) => {
     const code = document.querySelector("#bibtex");
     const button = event.currentTarget;
+    const label = button.querySelector(".copy-label");
+    clearTimeout(citationCopyReset);
     try {
       await navigator.clipboard.writeText(code.textContent);
-      button.textContent = "Copied";
+      label.textContent = "Copied";
       document.querySelector("#copy-status").textContent =
         "Citation copied to clipboard.";
     } catch {
@@ -671,12 +674,12 @@ document
       range.selectNodeContents(code);
       selection.removeAllRanges();
       selection.addRange(range);
-      button.textContent = "Citation selected";
+      label.textContent = "Citation selected";
       document.querySelector("#copy-status").textContent =
         "Copy unavailable. Citation selected; press Control+C or Command+C to copy.";
     }
-    setTimeout(() => {
-      button.textContent = "Copy citation";
+    citationCopyReset = setTimeout(() => {
+      label.textContent = "Copy";
     }, 2500);
   });
 
