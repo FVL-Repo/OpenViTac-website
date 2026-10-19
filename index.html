@@ -124,18 +124,26 @@
           </figcaption>
         </figure>
         <div class="overview-copy">
-          <h2 id="overview-title">Beyond what vision can tell.</h2>
+          <h2 id="overview-title">A benchmark for visuo-tactile manipulation</h2>
           <p>
-            Weight, texture, fragility, and contact are often hidden from a
-            camera. <strong>OpenViTac</strong> brings these physical challenges
-            into a unified benchmark, with corresponding simulation and
-            real-world tasks for evaluating vision-language-action,
-            world-action, and vision-tactile-language-action policies.
+            Touch helps robots judge an object's physical properties, control
+            their grip on fragile objects, and adjust their movements during
+            contact. Yet understanding how much it helps is difficult when
+            policies are tested with different tasks, sensors, and evaluation
+            protocols. <strong>OpenViTac</strong> provides a common benchmark
+            for studying these capabilities, with corresponding tasks in
+            simulation and the real world. It covers physical property
+            perception, handling fragile objects, contact-rich manipulation,
+            and precise insertion.
           </p>
           <p>
-            Alongside the benchmark, we introduce <strong>OpenVTLA</strong>: a
-            practical way to adapt pretrained VLA models to touch, and study how
-            simulated experience can improve real-world manipulation.
+            Using OpenViTac, we compare robot policies and study how to add
+            tactile feedback to pretrained vision-language-action models. We
+            examine both how touch is represented and where it enters the
+            policy, then combine the best-performing choices in
+            <strong>OpenVTLA</strong>. The paired tasks also let us study how
+            training with both simulated and real demonstrations affects
+            performance on real robots.
           </p>
         </div>
         <dl class="benchmark-facts">
