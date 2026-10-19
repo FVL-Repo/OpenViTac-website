@@ -255,10 +255,12 @@ Object.entries(groups).forEach(([id, name]) => {
   const button = element(
     "button",
     "",
-    `${name} (${id === "all" ? tasks.length : tasks.filter((task) => task.group === id).length})`,
+    name,
   );
   button.type = "button";
   button.dataset.group = id;
+  const count = id === "all" ? tasks.length : tasks.filter((task) => task.group === id).length;
+  button.append(element("span", "filter-count", String(count)));
   button.addEventListener("click", () => {
     selectedGroup = id;
     const visible = tasks.filter((task) => id === "all" || task.group === id);
@@ -321,10 +323,20 @@ function renderTaskDetail(focusControl) {
   const header = element("div", "task-detail-header");
   const titleRow = element("div", "task-title-row");
   titleRow.append(element("h3", "", task.name));
+  // Shared grid cells reserve space for the longest description at any width.
+  const description = element("p", "task-description");
+  tasks.forEach((item) => {
+    const text = element("span", "", item.description);
+    if (item.id !== task.id) {
+      text.className = "task-description-measure";
+      text.setAttribute("aria-hidden", "true");
+    }
+    description.append(text);
+  });
   header.append(
     element("p", "task-category", groups[task.group]),
     titleRow,
-    element("p", "task-description", task.description),
+    description,
   );
   const toolbar = element("div", "task-view-toolbar");
   const domains = element("div", "segmented task-domains");
@@ -355,7 +367,7 @@ function renderTaskDetail(focusControl) {
     });
     domains.append(real);
   }
-  const detailsButton = element("button", "task-view-button", taskView === "details" ? "← Back to demos" : "Task details →");
+  const detailsButton = element("button", "task-view-button", taskView === "details" ? "Back to demos" : "Task details");
   detailsButton.type = "button";
   detailsButton.dataset.taskControl = "details";
   detailsButton.setAttribute("aria-pressed", String(taskView === "details"));
@@ -363,8 +375,7 @@ function renderTaskDetail(focusControl) {
     taskView = taskView === "demos" ? "details" : "demos";
     renderTaskDetail("details");
   });
-  titleRow.append(domains);
-  toolbar.append(detailsButton);
+  toolbar.append(domains, detailsButton);
   header.append(toolbar);
   detail.replaceChildren(header);
   if (taskView === "demos") {
@@ -391,7 +402,8 @@ function renderTaskDemos(task, detail) {
   const conditionId = selectedConditions.get(conditionKey) || conditions[0][0];
   const condition = conditions.find(([id]) => id === conditionId) || conditions[0];
   const instructionText = condition[2] || set.instruction;
-  const controls = element("div", "task-demo-controls");
+  const instructionHeader = element("div", "task-instruction-header");
+  instructionHeader.append(element("span", "task-instruction-label", "Instruction"));
   if (conditions.length > 1) {
     const choices = element("div", "task-condition-list");
     choices.setAttribute("role", "group");
@@ -408,7 +420,7 @@ function renderTaskDemos(task, detail) {
       });
       choices.append(button);
     });
-    controls.append(choices);
+    instructionHeader.append(choices);
   }
   const grid = element("div", "task-demo-grid");
   for (const outcome of ["success", "failure"]) {
@@ -456,13 +468,29 @@ function renderTaskDemos(task, detail) {
     card.append(caption, media);
     grid.append(card);
   }
-  if (conditions.length > 1) body.append(controls);
-  if (instructionText) {
+  if (instructionText || conditions.length > 1) {
     const instruction = element("div", "task-instruction");
-    instruction.append(
-      element("span", "task-instruction-label", "Instruction"),
-      element("p", "", instructionText),
-    );
+    const copy = element("p", "task-instruction-copy");
+    copy.append(element("span", "", instructionText || ""));
+    // Overlapping, hidden copies reserve the longest instruction at this width,
+    // including real-world overrides and condition-specific instructions.
+    const instructions = new Set();
+    Object.values(config.taskDemos || {}).forEach((demo) => {
+      const variants = [demo];
+      if (demo.real && typeof demo.real === "object") variants.push({ ...demo, ...demo.real });
+      variants.forEach((variant) => {
+        if (variant.instruction) instructions.add(variant.instruction);
+        (variant.conditions || []).forEach(([, , text]) => {
+          if (text) instructions.add(text);
+        });
+      });
+    });
+    instructions.forEach((text) => {
+      const measure = element("span", "task-instruction-measure", text);
+      measure.setAttribute("aria-hidden", "true");
+      copy.append(measure);
+    });
+    instruction.append(instructionHeader, copy);
     body.append(instruction);
   }
   body.append(grid);
@@ -555,8 +583,6 @@ function renderResults() {
     tbody.append(row);
   });
   table.replaceChildren(caption, thead, tbody);
-  document.querySelector("#result-context").textContent =
-    `${domain === "sim" ? "11 simulation tasks" : "8 paired real-world tasks"}. Showing ${shown.length} of ${available.length} evaluated policies, ranked by average success.`;
   const button = document.querySelector("#expand-results");
   button.textContent = expanded
     ? "Show top 5 policies"

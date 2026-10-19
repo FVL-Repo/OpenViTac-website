@@ -104,10 +104,14 @@ background photos. Figure containers have rounded corners.
 Capability Taxonomy, Real–Sim Alignment, and Scene Diversity appear together
 as one **Overview of the OpenViTac design** figure, following the manuscript's
 left / stacked-right arrangement. On phones, the panels stack within the same
-figure and retain a shared caption. All images stay inline without full-size
-links. An optional standalone SVG can be assembled from the original PNG
-exports with the second command above.
+figure and retain their panel labels. The overview precedes the task browser.
+All images stay inline without full-size links. An optional standalone SVG can be assembled from the original PNG
+exports with the second command above. The radar plot remains an offline asset.
 
-Research-first layout inspired by the organization of https://univtac.github.io/, using OpenViTac's own manuscript, imagery, and data. Centered project identity and authors lead into a full-width teaser, a selectable task viewer, illustrated methods, compact expandable results, video placeholders, and citation.
+The architecture section uses one concise paragraph below the figure to explain
+the representation and integration study and the resulting OpenVTLA design. Evaluation contains the domain switch and expandable
+policy table, without headline metrics or the co-training summary.
+
+Research-first layout inspired by the organization of https://univtac.github.io/, using OpenViTac's own manuscript, imagery, and data. Centered project identity and authors lead into a full-width teaser, an abstract, a combined design overview, a selectable task viewer, the OpenVTLA architecture, compact expandable results, and citation.
 
 Palette: canvas `#ffffff`, surface `#f0f3fa`, text `#202a3b`, secondary `#566276`, accent `#2458b3`, rule `#d8dfeb`. Space Grotesk supplies headings; system sans-serif keeps prose easy to read; IBM Plex Mono is reserved for code and short task identifiers. Existing blue scientific figures guide the accent choice. No decorative animations or generated research imagery.

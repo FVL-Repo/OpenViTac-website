@@ -50,9 +50,6 @@
     </header>
     <main id="main">
       <section class="hero wrap" aria-labelledby="project-title">
-        <p class="hero-label">
-          A unified benchmark for robots that see and touch
-        </p>
         <h1 id="project-title">OpenViTac</h1>
         <p class="paper-title">
           Learning and Benchmarking Visuo-Tactile Policies<br
@@ -112,19 +109,15 @@
           <div class="figure-frame"><img
               src="assets/teaser.webp"
               srcset="assets/teaser-800.webp 800w, assets/teaser.webp 2000w"
-              sizes="(max-width: 767px) calc(100vw - 36px), 1040px"
+              sizes="(max-width: 767px) calc(100vw - 36px), 880px"
               width="2000"
               height="1446"
               fetchpriority="high"
               alt="OpenViTac overview: paired simulated and real tasks, four tactile capabilities, two gripper setups, three tactile sensors, and policy evaluation."
           /></div>
-          <figcaption>
-            One benchmark. Paired simulation and reality. Four dimensions of
-            touch.
-          </figcaption>
         </figure>
         <div class="overview-copy">
-          <h2 id="overview-title">A benchmark for visuo-tactile manipulation</h2>
+          <h2 id="overview-title">A unified real-sim benchmark for visuo-tactile manipulation</h2>
           <p>
             Touch helps robots judge an object's physical properties, control
             their grip on fragile objects, and adjust their movements during
@@ -146,6 +139,56 @@
             performance on real robots.
           </p>
         </div>
+      </section>
+
+      <section
+        class="section wrap"
+        id="sim-real"
+        aria-labelledby="sim-real-title"
+      >
+        <div class="section-heading">
+          <h2 id="sim-real-title">Overview of the OpenViTac benchmark</h2>
+        </div>
+        <figure class="design-figure" aria-labelledby="sim-real-title">
+          <div class="design-panels">
+            <div class="design-panel design-taxonomy">
+              <img
+                src="assets/capability_taxonomy.webp"
+                srcset="assets/capability_taxonomy-800.webp 800w, assets/capability_taxonomy.webp 1600w"
+                sizes="(max-width: 767px) calc(100vw - 36px), 367px"
+                width="1600"
+                height="1596"
+                loading="lazy"
+                alt="Four visuo-tactile capabilities and their underlying skills, arranged in a circular taxonomy."
+              />
+              <p class="design-panel-label"><span>(a)</span> Capability Taxonomy</p>
+            </div>
+            <div class="design-panel design-alignment">
+              <img
+                src="assets/real_sim_alignment.webp"
+                srcset="assets/real_sim_alignment-800.webp 800w, assets/real_sim_alignment.webp 2000w"
+                sizes="(max-width: 767px) calc(100vw - 36px), 489px"
+                width="2000"
+                height="1013"
+                loading="lazy"
+                alt="Corresponding real-world and simulated objects and manipulation setups, aligned at the asset and task levels."
+              />
+              <p class="design-panel-label"><span>(b)</span> Real–Sim Alignment</p>
+            </div>
+            <div class="design-panel design-diversity">
+              <img
+                src="assets/scene_diversity.webp"
+                srcset="assets/scene_diversity-800.webp 800w, assets/scene_diversity.webp 2000w"
+                sizes="(max-width: 767px) calc(100vw - 36px), 489px"
+                width="2000"
+                height="402"
+                loading="lazy"
+                alt="A shared USB-insertion task with increasingly diverse simulated backgrounds and workspace appearances."
+              />
+              <p class="design-panel-label"><span>(c)</span> Scene Diversity</p>
+            </div>
+          </div>
+        </figure>
         <dl class="benchmark-facts">
           <div>
             <dt>Simulation tasks</dt>
@@ -173,11 +216,7 @@
       >
         <div class="wrap">
           <div class="section-heading">
-            <h2 id="benchmark-title">Put touch to the test.</h2>
-            <p>
-              From recognizing an object's physical properties to making a
-              precise insertion, each task isolates a reason to feel.
-            </p>
+            <h2 id="benchmark-title">Manipulation tasks across four tactile capabilities</h2>
           </div>
           <div
             class="filter-list"
@@ -199,69 +238,7 @@
               aria-atomic="true"
             ></article>
           </div>
-
         </div>
-      </section>
-
-      <section
-        class="section wrap"
-        id="sim-real"
-        aria-labelledby="sim-real-title"
-      >
-        <div class="section-heading">
-          <h2 id="sim-real-title">Overview of the OpenViTac design</h2>
-          <p>
-            A capability-driven benchmark, grounded in real-world tasks and
-            expanded through diverse simulation environments.
-          </p>
-        </div>
-        <figure class="design-figure" aria-labelledby="design-caption">
-          <div class="design-panels">
-            <div class="design-panel design-taxonomy">
-              <img
-                src="assets/capability_taxonomy.webp"
-                srcset="assets/capability_taxonomy-800.webp 800w, assets/capability_taxonomy.webp 1600w"
-                sizes="(max-width: 767px) calc(100vw - 68px), 460px"
-                width="1600"
-                height="1596"
-                loading="lazy"
-                alt="Four visuo-tactile capabilities and their underlying skills, arranged in a circular taxonomy."
-              />
-              <p class="design-panel-label"><span>(a)</span> Capability Taxonomy</p>
-            </div>
-            <div class="design-panel design-alignment">
-              <img
-                src="assets/real_sim_alignment.webp"
-                srcset="assets/real_sim_alignment-800.webp 800w, assets/real_sim_alignment.webp 2000w"
-                sizes="(max-width: 767px) calc(100vw - 68px), 620px"
-                width="2000"
-                height="1013"
-                loading="lazy"
-                alt="Corresponding real-world and simulated objects and manipulation setups, aligned at the asset and task levels."
-              />
-              <p class="design-panel-label"><span>(b)</span> Real–Sim Alignment</p>
-            </div>
-            <div class="design-panel design-diversity">
-              <img
-                src="assets/scene_diversity.webp"
-                srcset="assets/scene_diversity-800.webp 800w, assets/scene_diversity.webp 2000w"
-                sizes="(max-width: 767px) calc(100vw - 68px), 620px"
-                width="2000"
-                height="402"
-                loading="lazy"
-                alt="A shared USB-insertion task with increasingly diverse simulated backgrounds and workspace appearances."
-              />
-              <p class="design-panel-label"><span>(c)</span> Scene Diversity</p>
-            </div>
-          </div>
-          <figcaption id="design-caption">
-            <strong>Overview of the OpenViTac design.</strong>
-            <strong>(a)</strong> Four tactile capabilities define the skills to evaluate.
-            <strong>(b)</strong> Real-world references guide corresponding simulation
-            assets and tasks. <strong>(c)</strong> Configurable appearance variations
-            broaden scene diversity while preserving the underlying task.
-          </figcaption>
-        </figure>
       </section>
 
       <section
@@ -271,74 +248,32 @@
       >
         <div class="wrap">
           <div class="section-heading">
-            <p class="section-kicker">Introducing OpenVTLA</p>
-            <h2 id="openvtla-title">Give a pretrained VLA a sense of touch.</h2>
-            <p>
-              A temporally aware tactile encoder. Early token-level integration.
-              The original vision-language and action pathway.
-            </p>
+            <h2 id="openvtla-title">OpenVTLA: adapting pretrained VLAs to touch</h2>
           </div>
-          <figure>
-            <div class="figure-frame figure-white"><img
-                src="assets/tactile_design.webp"
-                srcset="
-                  assets/tactile_design-800.webp  800w,
-                  assets/tactile_design.webp     2200w
-                "
-                sizes="(max-width: 767px) calc(100vw - 36px), 1120px"
-                width="2200"
-                height="963"
-                loading="lazy"
-                alt="Design space comparing four tactile representations and five integration strategies for adapting pretrained vision-language-action models."
-            /></div>
-            <figcaption>
-              We study what tactile information to represent, and where to
-              introduce it into a pretrained policy.
-            </figcaption>
-          </figure>
-          <div class="method-study">
-            <div class="method-copy">
-              <h3>Temporal touch, integrated early.</h3>
-              <p>
-                OpenVTLA uses <strong>AnyTouch2</strong> to encode tactile
-                history into compact tokens. These tokens are projected to the
-                VLM hidden dimension and prepended to the visual sequence of
-                <strong>π<sub>0.5</sub></strong
-                >.
-              </p>
-              <p>
-                Token-level concatenation lets touch participate from the VLM
-                input, without an additional fusion module or tactile-specific
-                expert.
-              </p>
-              <dl class="study-facts">
-                <div>
-                  <dt>Tactile representations studied</dt>
-                  <dd>4</dd>
-                </div>
-                <div>
-                  <dt>Integration strategies studied</dt>
-                  <dd>5</dd>
-                </div>
-              </dl>
-            </div>
-            <figure class="radar-figure">
+          <div class="architecture-content">
+            <figure class="architecture-figure">
               <div class="figure-frame figure-white"><img
-                  src="assets/tactile_radar.webp"
+                  src="assets/tactile_design.webp"
                   srcset="
-                    assets/tactile_radar-800.webp  800w,
-                    assets/tactile_radar.webp     1000w
+                    assets/tactile_design-800.webp  800w,
+                    assets/tactile_design.webp     2200w
                   "
-                  sizes="(max-width: 767px) calc(100vw - 36px), 360px"
-                  width="1000"
-                  height="1214"
+                  sizes="(max-width: 767px) calc(100vw - 36px), 880px"
+                  width="2200"
+                  height="963"
                   loading="lazy"
-                  alt="Radar plot comparing tactile representations under a fixed token-level concatenation strategy."
+                  alt="Design space comparing four tactile representations and five integration strategies for adapting pretrained vision-language-action models."
               /></div>
-              <figcaption>
-                Representation comparison with the same integration strategy.
-              </figcaption>
             </figure>
+            <p class="architecture-copy">
+              We study how to adapt pretrained VLAs to touch by comparing tactile
+              representations and integration strategies on the same
+              π<sub>0.5</sub> backbone. Based on this study, <strong>OpenVTLA</strong>
+              uses AnyTouch2 to encode tactile history into compact tokens and
+              combines them with visual tokens at the VLM input. This lets the
+              policy use tactile feedback while preserving its original
+              vision-language and action-generation pathway.
+            </p>
           </div>
         </div>
       </section>
@@ -349,21 +284,7 @@
         aria-labelledby="results-title"
       >
         <div class="section-heading">
-          <h2 id="results-title">Evaluate in sim. Validate in reality.</h2>
-          <p>
-            OpenVTLA achieves the highest average success rate among the
-            evaluated policies in both domains.
-          </p>
-        </div>
-        <div class="result-highlights">
-          <div>
-            <strong>68.7<span>%</span></strong>
-            <p>OpenVTLA in simulation</p>
-          </div>
-          <div>
-            <strong>54.6<span>%</span></strong>
-            <p>OpenVTLA on real hardware</p>
-          </div>
+          <h2 id="results-title">Policy performance in simulation and the real world</h2>
         </div>
         <div class="results-toolbar">
           <div class="segmented" role="group" aria-label="Evaluation domain">
@@ -382,7 +303,6 @@
             Show all policies
           </button>
         </div>
-        <p class="result-context" id="result-context"></p>
         <div
           class="table-scroll"
           tabindex="0"
@@ -391,54 +311,13 @@
         >
           <table id="results-table"></table>
         </div>
-        <p class="table-note">
-          Success rates (%). Average is the unweighted mean across tasks. All
-          policies use single-task training. Full task names are available in
-          the column headings.
-        </p>
-        <div class="cotrain">
-          <div>
-            <h3>Simulation makes real data go further.</h3>
-            <p>
-              With 100 real demonstrations per task, adding 500 simulated
-              demonstrations raises OpenVTLA's average success by 15 percentage
-              points across USB insertion and gear assembly.
-            </p>
-          </div>
-          <div class="cotrain-data">
-            <table>
-              <caption>
-                OpenVTLA real-world success (%)
-              </caption>
-              <thead>
-                <tr>
-                  <th scope="col">Training data</th>
-                  <th scope="col">Insert USB</th>
-                  <th scope="col">Gear assembly</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">100 real</th>
-                  <td>20</td>
-                  <td>50</td>
-                </tr>
-                <tr>
-                  <th scope="row">100 real + 500 sim</th>
-                  <td><strong>40</strong></td>
-                  <td><strong>60</strong></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
       </section>
 
       <!-- Demo section temporarily disabled; restore together with app.js rendering.
       <section class="section" id="demos" aria-labelledby="demos-title">
         <div class="wrap">
           <div class="section-heading">
-            <h2 id="demos-title">See touch in action.</h2>
+            <h2 id="demos-title">Robot demonstrations across benchmark tasks</h2>
             <p>
               Task demonstrations and real-world policy rollouts. Videos are
               coming soon.

@@ -146,7 +146,8 @@ for name, (filename, width) in FIGURES.items():
     # Keep image dimensions consistent with the newly rendered PDFs.
     pattern = rf'(src="assets/{name}\.webp"[\s\S]*?width=")\d+("\s+height=")\d+(")'
     html, count = re.subn(pattern, lambda m: f'{m[1]}{w}{m[2]}{h}{m[3]}', html)
-    assert count == 1, name
+    # The radar remains available as an offline asset, outside the website.
+    assert count == 1 or (name == "tactile_radar" and count == 0), name
 html_path.write_text(html)
 for name, filename in TASKS.items():
     export(name, SOURCE / "Task_visualization" / filename, 1200, ROOT / "assets/tasks")
