@@ -335,7 +335,7 @@ figcaption {
   padding-top: 80px;
   padding-bottom: 80px;
 }
-.tinted {
+#benchmark {
   background: var(--surface);
 }
 .section-heading {
@@ -748,7 +748,7 @@ figcaption {
 }
 .result-highlights {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
   margin: 35px 0 40px;
 }
@@ -955,15 +955,8 @@ abbr {
 }
 .citation-section {
   display: grid;
-  grid-template-columns: 280px minmax(0, 1fr);
-  gap: 60px;
-}
-.citation-section > div > p {
-  margin-top: 18px;
-  font-size: 14px;
-}
-.citation-note {
-  font-size: 12px !important;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
 }
 .citation-box {
   min-width: 0;
@@ -1070,10 +1063,6 @@ code {
   }
   .task-detail-header {
     padding: 22px 22px 12px;
-  }
-  .citation-section {
-    grid-template-columns: 220px minmax(0, 1fr);
-    gap: 30px;
   }
 }
 @media (max-width: 767px) {
@@ -1302,11 +1291,7 @@ code {
     gap: 30px;
   }
   .citation-section {
-    grid-template-columns: 1fr;
     gap: 25px;
-  }
-  .citation-section > div > p {
-    margin-top: 13px;
   }
   .footer {
     flex-wrap: wrap;
@@ -1391,9 +1376,6 @@ code {
   .table-scroll,
   pre {
     overflow: visible;
-  }
-  .tinted {
-    background: transparent;
   }
   figure {
     break-inside: avoid;
